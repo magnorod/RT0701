@@ -116,6 +116,8 @@ modifier /etc/ssh/sshd_config
 * PermitRootLogin no
 * PubkeyAuthentication no  
 * PasswordAuthentication no
+* ChallengeResponseAUthentification no
+
 
 ajouter à la fin du fichier:
 
