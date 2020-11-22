@@ -7,7 +7,6 @@ Utilisation de docker pour ce TP donc 1 conteneur par OS
 
 
 run d'un conteneur en mode privilège
-docker run -i -d -t --privileged --network=mynetwork-1 debian
 
 docker run -idt --privileged --network=mynetwork-1 --ip 172.18.10.10 debian-v2 /bin/bash
 
