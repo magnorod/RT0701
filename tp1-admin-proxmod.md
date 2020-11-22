@@ -101,10 +101,9 @@ modifier /etc/ssh/sshd_config
 
 * ssh-keygen -t rsa
 
-copie de la clé publique du conteneur Debian sur le conteneur Centos
+### copie de la clé publique du conteneur Debian sur le conteneur Centos
 
-ssh-copy-id -i /home/superv/.ssh/id_rsa.pub superv@172.18.10.20
-
+ssh-copy-id -i ~/.ssh/id_rsa.pub superv@172.18.10.21
 
 Centos:
 * accepte uniquement ssh depuis debian
@@ -131,5 +130,22 @@ modifier /etc/ssh/sshd_config
 ### redémarrage de sshd
 * systemctl restart sshd.service
 
+## Commande de contrôle d'exécution
 
-problème connexion uniquement clé debian-> centos
+### extraire l'adresse ip d'une machine
+
+* ip addr show dev eth0 | grep eth0 | grep inet | awk '{print $2}'
+
+### l'espace disque disponible
+ 
+df | awk '{print $4}' | awk -v l=2 'NR==l{ print }' > test.txt
+df | awk '{print $4}' | awk -v l=3 'NR==l{ print }' >> test.txt
+df | awk '{print $4}' | awk -v l=4 'NR==l{ print }' >> test.txt
+df | awk '{print $4}' | awk -v l=5 'NR==l{ print }' >> test.txt
+df | awk '{print $4}' | awk -v l=6 'NR==l{ print }' >> test.txt
+df | awk '{print $4}' | awk -v l=7 'NR==l{ print }' >> test.txt
+
+
+
+
+
