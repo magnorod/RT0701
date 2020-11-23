@@ -138,13 +138,21 @@ modifier /etc/ssh/sshd_config
 
 ### l'espace disque disponible
  
-df | awk '{print $4}' | awk -v l=2 'NR==l{ print }' > test.txt
-df | awk '{print $4}' | awk -v l=3 'NR==l{ print }' >> test.txt
-df | awk '{print $4}' | awk -v l=4 'NR==l{ print }' >> test.txt
-df | awk '{print $4}' | awk -v l=5 'NR==l{ print }' >> test.txt
-df | awk '{print $4}' | awk -v l=6 'NR==l{ print }' >> test.txt
-df | awk '{print $4}' | awk -v l=7 'NR==l{ print }' >> test.txt
+* df | awk '{print $4}'
 
+
+## afficher la charge CPU instantanée
+
+top -n1 -b | awk '{print $9}'
+
+
+## Collecte distante
+
+1) Démarrage commande debian -> connexion ssh -> commande sur centos
+2) Centos sauvegarde le résultat des commandes dans un fichier
+3) envoi du fichier via scp dans le /tmp du conteneur debian
+
+## Exécution des commandes
 
 
 
