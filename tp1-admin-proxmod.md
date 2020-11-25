@@ -109,6 +109,17 @@ Centos:
 * accepte uniquement ssh depuis debian
 * échange de clé 
 
+
+### génération d'une paire de clé sur la machine centos
+
+* ssh-keygen -t rsa
+
+### copie de la clé publique du conteneur centos sur le conteneur debian
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub superv@172.18.10.20
+
+
+
 ### accepte uniquement ssh depuis debian 
 modifier /etc/ssh/sshd_config
 
@@ -153,6 +164,75 @@ top -n1 -b | awk '{print $9}'
 3) envoi du fichier via scp dans le /tmp du conteneur debian
 
 ## Exécution des commandes
+
+script de base à  éxécuter sur Debian:
+
+![](script-debian.png)
+
+qui va faire appel à ce script sur Centos:
+
+![](script-centos.png)
+
+résultat final:
+
+![](resultat-script-centos.png)
+
+
+Pour effectuer le script sur la machine debian toutes les 5 minutes, on va utiliser le démon CRON
+
+ajout d'une règle crontab
+
+![](crontab.png)
+
+
+## Répertoire réseau partage
+
+
+partager un répertoire de la machine debian vers alpine et centos
+
+sur debian:
+
+* sudo apt install samba -y && apt install smbclient
+
+mkdir dossier-partage
+touch dossier-partage/test.txt
+
+nano /etc/samba/smb.conf
+
+
+
+
+chown -R superv:superv /home/superv/dossier-partage/
+
+chmod -R 770 /home/superv/dossier-partage/
+
+
+ajouter l'utilisateur superv aux utilisateurs samba:
+* smbpasswd -a superv
+
+lister les utilisateurs samba:
+* pdbedit -w -L
+
+pour accéder à l'ensemble du répertoire partagé /home/superv
+* smbclient //Debian-RT0701/superv
+
+
+sur centos
+yum install samba -y (en root)
+
+dans /etc/fstab
+//Debian-RT0701/dossier-partage     /media/partage-samba     cifs     _netdev,superv     0     0
+
+sudo mount -a
+
+sur alpine:
+apk add samba 
+
+
+
+
+
+
 
 
 
